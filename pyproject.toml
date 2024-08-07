@@ -8,7 +8,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 alembic = "^1.13.2"
-
+sqlalchemy = {extras = ["all"], version = "^2.0.27"}
+asyncpg = "^0.29.0"
+fastapi = {extras = ["all"], version = "^0.109.2"}
+uuid = "^1.30"
 
 [build-system]
 requires = ["poetry-core"]
