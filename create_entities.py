@@ -1,7 +1,8 @@
 import os
+import sys
 
-# List of entities
-entities = ['user']  # Replace with your actual entities
+
+
 
 # Directories to be created
 directories = [
@@ -397,44 +398,49 @@ def create_directory(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
+if __name__ == "__main__":
+    # List of entities
+    entities = [sys.argv[i] for i in sys.argv]
 
-# Main script
-for entity in entities:
-    entity_lower = entity.lower()
-    entity_capitalized = entity.capitalize()
+    # Main script
+    for entity in entities:
+        entity_lower = entity.lower()
+        entity_capitalized = entity.capitalize()
 
-    # Create directories
-    for directory in directories:
-        dir_path = os.path.join(directory, entity_lower)
-        create_directory(dir_path)
+        # Create directories
+        for directory in directories:
+            dir_path = os.path.join(directory, entity_lower)
+            create_directory(dir_path)
 
-    # Write files with the corresponding content
-    files_content = {
-        f'repositories/{entity_lower}/{entity_lower}_repository.py': repository_template.format(entity=entity_lower,
-                                                                                                Entity=entity_capitalized),
-        f'services/{entity_lower}/{entity_lower}_service.py': service_template.format(entity=entity_lower,
-                                                                                      Entity=entity_capitalized),
-        f'schemas/{entity_lower}/{entity_lower}_schema.py': schema_template.format(entity=entity_lower,
-                                                                                   Entity=entity_capitalized),
-        f'database/models/{entity_lower}/{entity_lower}.py': model_template.format(entity=entity_lower,
-                                                                                   Entity=entity_capitalized),
-        f'routers/{entity_lower}/{entity_lower}_router.py': router_template.format(entity=entity_lower,
-                                                                                   Entity=entity_capitalized),
-        f'tests/{entity_lower}/test_{entity_lower}_repository.py': test_repository_template.format(entity=entity_lower,
-                                                                                   Entity=entity_capitalized),
-        f'tests/{entity_lower}/test_{entity_lower}_service.py': test_service_template.format(entity=entity_lower,
-                                                                                   Entity=entity_capitalized),
-    }
-    # Fill entity files
-    for file_path, content in files_content.items():
-        if not os.path.exists(file_path):
-            with open(file_path, 'w') as file:
-                file.write(content)
+        # Write files with the corresponding content
+        files_content = {
+            f'repositories/{entity_lower}/{entity_lower}_repository.py': repository_template.format(entity=entity_lower,
+                                                                                                    Entity=entity_capitalized),
+            f'services/{entity_lower}/{entity_lower}_service.py': service_template.format(entity=entity_lower,
+                                                                                          Entity=entity_capitalized),
+            f'schemas/{entity_lower}/{entity_lower}_schema.py': schema_template.format(entity=entity_lower,
+                                                                                       Entity=entity_capitalized),
+            f'database/models/{entity_lower}/{entity_lower}.py': model_template.format(entity=entity_lower,
+                                                                                       Entity=entity_capitalized),
+            f'routers/{entity_lower}/{entity_lower}_router.py': router_template.format(entity=entity_lower,
+                                                                                       Entity=entity_capitalized),
+            f'tests/{entity_lower}/test_{entity_lower}_repository.py': test_repository_template.format(
+                entity=entity_lower,
+                Entity=entity_capitalized),
+            f'tests/{entity_lower}/test_{entity_lower}_service.py': test_service_template.format(entity=entity_lower,
+                                                                                                 Entity=entity_capitalized),
+        }
+        # Fill entity files
+        for file_path, content in files_content.items():
+            if not os.path.exists(file_path):
+                with open(file_path, 'w') as file:
+                    file.write(content)
 
-# Connect to general FastAPI router
-init_content_lines = ["from fastapi import APIRouter"] + [router_import_template.format(entity=ent.lower()) for ent in
-                                                          entities] + ["router = APIRouter()"] + [
-                         router_connect_template.format(entity=ent.lower(), Entity=ent.capitalize()) for ent in
-                         entities]
-with open('routers/__init__.py', 'w') as file:
-    file.write("\n".join(init_content_lines))
+    # Connect to general FastAPI router
+    init_content_lines = ["from fastapi import APIRouter"] + [router_import_template.format(entity=ent.lower()) for ent
+                                                              in
+                                                              entities] + ["router = APIRouter()"] + [
+                             router_connect_template.format(entity=ent.lower(), Entity=ent.capitalize()) for ent in
+                             entities]
+    with open('routers/__init__.py', 'w') as file:
+        file.write("\n".join(init_content_lines))
