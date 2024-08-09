@@ -1,0 +1,48 @@
+import asyncio
+from typing import List, Optional, Type
+
+from pydantic import UUID4
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from database import db_helper
+from database.models.{entity}.{entity} import {Entity}
+from schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output
+
+
+class {Entity}Repository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create(self, data: {Entity}Input) -> {Entity}Output:
+        entity = {Entity}()
+        self.session.add(entity)
+        await self.session.commit()
+        await self.session.refresh(entity)
+        return {Entity}Output(
+            id=entity.id)
+
+    async def get_all(self) -> List[Optional[{Entity}Output]]:
+        stmt = select({Entity}).order_by({Entity}.id)
+        result = await self.session.execute(stmt)
+        entities = result.scalars().all()
+        return [{Entity}Output(**entity.__dict__) for entity in entities]
+
+    async def get_{entity}(self, _id: UUID4) -> {Entity}Output:
+        entity = await self.session.get({Entity}, _id)
+        return {Entity}Output(**entity.__dict__)
+
+    async def get_by_id(self, _id: UUID4) -> Optional[{Entity}]:
+        return await self.session.get({Entity}, _id)
+
+    async def update(self, entity: Type[{Entity}], data: {Entity}Input) -> {Entity}Output:
+        for key, value in data.model_dump(exclude_none=True).items():
+            setattr(entity, key, value)
+        await self.session.commit()
+        await self.session.refresh(entity)
+        return {Entity}Output(**entity.__dict__)
+
+    async def delete(self, entity: Type[{Entity}]) -> bool:
+        await self.session.delete(entity)
+        await self.session.commit()
+        return True

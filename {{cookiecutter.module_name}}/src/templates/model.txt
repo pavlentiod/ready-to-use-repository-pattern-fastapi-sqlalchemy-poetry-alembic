@@ -1,0 +1,13 @@
+from sqlalchemy import String, Integer, Boolean, DateTime, func, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from database.base import Base
+
+class {Entity}(Base):
+    __tablename__ = "{entity}"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    some_column_str: Mapped[str] = mapped_column(String(100), nullable=True, server_default='', default='')
+    some_column_int: Mapped[int] = mapped_column(Integer, nullable=False)
+
+    some_relationship_column: Mapped[int] = mapped_column(ForeignKey("other_model.key"))
+    some_relationship: Mapped["Other_model"] = relationship(back_populates="other_model_relationship")

@@ -1,0 +1,106 @@
+import pytest
+from fastapi import HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+from uuid import uuid4
+
+from schemas.{entity}.{entity}_schema import {Entity}Input
+from service.{entity}.{entity}_service import {Entity}Service
+
+
+@pytest.fixture
+def sample_{entity}_data() -> {Entity}Input:
+    return {Entity}Input(
+        # Add sample data fields here
+    )
+
+@pytest.fixture
+def updated_{entity}_data() -> {Entity}Input:
+    return {Entity}Input(
+        # Add updated data fields here
+    )
+
+async def test_create_{entity}(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    service = {Entity}Service(session)
+
+    # Create a new {entity}
+    created_{entity} = await service.create(sample_{entity}_data)
+
+    # Verify the created {entity} has the expected attributes
+    assert created_{entity}.field == sample_{entity}_data.field  # Replace 'field' with actual field names
+
+    # Try to create the same {entity} again (should raise HTTPException)
+    # with pytest.raises(HTTPException):
+    #     await service.create(sample_{entity}_data)
+
+    # Clean up by deleting the created {entity} (if necessary)
+    await service.delete(created_{entity}.id)
+
+
+async def test_get_all_{entity}s(session: AsyncSession):
+    service = {Entity}Service(session)
+
+    # Retrieve all {entity}s (expecting at least one)
+    all_{entity}s = await service.get_all()
+    assert len(all_{entity}s) > 0
+
+    # Clean up by deleting all {entity}s (if necessary)
+    for {entity} in all_{entity}s:
+        await service.delete({entity}.id)
+
+
+async def test_get_{entity}_by_id(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    service = {Entity}Service(session)
+
+    # Create a new {entity}
+    created_{entity} = await service.create(sample_{entity}_data)
+
+    # Retrieve the {entity} by ID
+    retrieved_{entity} = await service.get_{entity}(created_{entity}.id)
+
+    # Verify the retrieved {entity} matches the created {entity}
+    assert retrieved_{entity}.field == sample_{entity}_data.field  # Replace 'field' with actual field names
+
+    # Try to retrieve a non-existent {entity} (should raise HTTPException)
+    with pytest.raises(HTTPException):
+        await service.get_{entity}(uuid4())
+
+    # Clean up by deleting the created {entity}
+    await service.delete(created_{entity}.id)
+
+
+async def test_update_{entity}(session: AsyncSession, sample_{entity}_data: {Entity}Input, updated_{entity}_data: {Entity}Input):
+    service = {Entity}Service(session)
+
+    # Create a new {entity}
+    created_{entity} = await service.create(sample_{entity}_data)
+
+    # Update the {entity}'s information
+    updated_{entity} = await service.update(created_{entity}.id, updated_{entity}_data)
+
+    # Verify the updated {entity} has the new attributes
+    assert updated_{entity}.field == updated_{entity}_data.field  # Replace 'field' with actual field names
+
+    # Try to update a non-existent {entity} (should raise HTTPException)
+    with pytest.raises(HTTPException):
+        await service.update(uuid4(), updated_{entity}_data)
+
+    # Clean up by deleting the created {entity}
+    await service.delete(created_{entity}.id)
+
+
+async def test_delete_{entity}(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    service = {Entity}Service(session)
+
+    # Create a new {entity}
+    created_{entity} = await service.create(sample_{entity}_data)
+
+    # Delete the {entity} and verify
+    result = await service.delete(created_{entity}.id)
+    assert result is True
+
+    # Try to delete a non-existent {entity} (should raise HTTPException)
+    with pytest.raises(HTTPException):
+        await service.delete(uuid4())
+
+    # Clean up by deleting the created {entity} (if necessary)
+    # Note: Depending on your implementation, the {entity} might already be deleted in the previous step.

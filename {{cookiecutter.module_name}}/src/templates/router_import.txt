@@ -1,0 +1,1 @@
+from .{entity}.{entity}_router import router as {entity}_router

@@ -1,0 +1,65 @@
+import pytest
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from repositories.{entity}.{entity}_repository import {Entity}Repository
+from schemas.{entity}.{entity}_schema import {Entity}Input
+
+
+@pytest.fixture
+def sample_{entity}_data() -> {Entity}Input:
+    return {Entity}Input(
+        # Add sample data fields here
+    )
+
+@pytest.fixture
+def updated_{entity}_data() -> {Entity}Input:
+    return {Entity}Input(
+        # Add updated data fields here
+    )
+
+
+async def test_create(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    {entity}_repository = {Entity}Repository(session=session)
+    {entity} = await {entity}_repository.create(sample_{entity}_data)
+
+    assert {entity}.field == sample_{entity}_data.field  # Replace 'field' with actual field names
+
+async def test_get_all(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    {entity}_repository = {Entity}Repository(session=session)
+    await {entity}_repository.create(sample_{entity}_data)
+    {entity}s = await {entity}_repository.get_all()
+
+    assert len({entity}s) > 0
+    assert {entity}s[0].field == sample_{entity}_data.field  # Replace 'field' with actual field names
+
+async def test_get_{entity}(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    {entity}_repository = {Entity}Repository(session=session)
+    created_{entity} = await {entity}_repository.create(sample_{entity}_data)
+    {entity} = await {entity}_repository.get_{entity}(created_{entity}.id)
+
+    assert {entity}.field == sample_{entity}_data.field  # Replace 'field' with actual field names
+    assert {entity}.id == created_{entity}.id
+
+async def test_get_by_id(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    {entity}_repository = {Entity}Repository(session=session)
+    created_{entity} = await {entity}_repository.create(sample_{entity}_data)
+    {entity} = await {entity}_repository.get_by_id(created_{entity}.id)
+
+    assert {entity} is not None
+    assert {entity}.id == created_{entity}.id
+
+async def test_update(session: AsyncSession, sample_{entity}_data: {Entity}Input, updated_{entity}_data: {Entity}Input):
+    {entity}_repository = {Entity}Repository(session=session)
+    created_{entity} = await {entity}_repository.create(sample_{entity}_data)
+    {entity} = await {entity}_repository.get_by_id(created_{entity}.id)
+    updated_{entity} = await {entity}_repository.update({entity}, updated_{entity}_data)
+
+    assert updated_{entity}.field == updated_{entity}_data.field  # Replace 'field' with actual field names
+
+async def test_delete(session: AsyncSession, sample_{entity}_data: {Entity}Input):
+    {entity}_repository = {Entity}Repository(session=session)
+    created_{entity} = await {entity}_repository.create(sample_{entity}_data)
+    {entity} = await {entity}_repository.get_by_id(created_{entity}.id)
+    success = await {entity}_repository.delete({entity})
+
+    assert success is True
