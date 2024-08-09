@@ -204,7 +204,7 @@ async def delete_{entity}(
 ):
     _service = {Entity}Service(session)
     await _service.delete(_id)
-    return {{"detail": "{entity} deleted successfully"}}
+    return {{"detail": "... deleted successfully"}}
 
 '''
 
@@ -400,7 +400,8 @@ def create_directory(path):
 
 if __name__ == "__main__":
     # List of entities
-    entities = [sys.argv[i] for i in sys.argv]
+    # entities = [i for i in sys.argv]
+    entities = ['user']
 
     # Main script
     for entity in entities:
