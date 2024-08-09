@@ -15,7 +15,7 @@ directories = [
 ]
 
 # Template files content
-repository_template = ''' 
+repository_template = r''' 
 import asyncio
 from typing import List, Optional, Type
 
@@ -67,7 +67,7 @@ class {Entity}Repository:
 
 '''
 
-service_template = '''
+service_template = r'''
 import asyncio
 import datetime
 from typing import List
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 '''
 
-schema_template = '''
+schema_template = r'''
 from typing import Optional, List
 from uuid import UUID
 from pydantic import BaseModel, Field
@@ -139,7 +139,7 @@ class {Entity}Endpoint(BaseModel):
     pass
 '''
 
-model_template = '''
+model_template = r'''
 from sqlalchemy import String, Integer, Boolean, DateTime, func, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -207,14 +207,14 @@ async def delete_{entity}(
     return "deleted"
 '''
 
-router_import_template = """
+router_import_template = r"""
 from .{entity}.{entity}_router import router as {entity}_router
 """
-router_connect_template = """
+router_connect_template = r"""
 router.include_router({entity}_router, prefix='/{entity}', tags=['{Entity}'])
 """
 
-test_repository_template = """
+test_repository_template = r"""
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -282,7 +282,7 @@ async def test_delete(session: AsyncSession, sample_{entity}_data: {Entity}Input
     assert success is True
 """
 
-test_service_template = """
+test_service_template = r"""
 import pytest
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
