@@ -3,7 +3,7 @@ from typing import AsyncGenerator
 import pytest
 from sqlalchemy.ext.asyncio import AsyncConnection, AsyncTransaction, create_async_engine, AsyncSession
 
-from config import settings
+from src.config import settings
 
 engine = create_async_engine(settings.db.url)
 pytestmark = pytest.mark.anyio

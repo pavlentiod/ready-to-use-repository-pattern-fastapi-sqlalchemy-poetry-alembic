@@ -1,0 +1,10 @@
+{
+    "project_name": "Basic Python Project",
+    "module_name": "basicpythonproject",
+    "author_name": "Pavel Ivanov",
+    "author_email": "levap.spb@gmail.com",
+    "github_username": "pavlentiod",
+    "project_version": "0.1.0",
+    "project_short_description": "A basic FastAPI project with Alembic and SQLAlchemy",
+    "coc_contact_info": "levap.spb@gmail.com"
+}

@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from routers import router as general_router
+from src.routers import router as general_router
 
 
 @asynccontextmanager

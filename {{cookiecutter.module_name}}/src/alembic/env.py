@@ -22,7 +22,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 
-from config import settings
+from src.config import settings
 
 target_metadata = Base.metadata
 
