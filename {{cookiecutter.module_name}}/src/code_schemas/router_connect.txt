@@ -1,1 +1,0 @@
-router.include_router({entity}_router, prefix='/{entity}', tags=['{Entity}'])
