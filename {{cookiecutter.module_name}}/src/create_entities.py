@@ -44,7 +44,7 @@ filenames = [
 ]
 
 for name in filenames:
-    with open(f'templates/{name}.txt', 'r') as f:
+    with open(f'code_schemas/{name}.txt', 'r') as f:
         templates[f'{name}_template'] = f.read()
 
 # Access the templates
