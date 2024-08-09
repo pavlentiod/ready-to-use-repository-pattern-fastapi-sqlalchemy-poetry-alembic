@@ -204,7 +204,6 @@ async def delete_{entity}(
 ):
     _service = {Entity}Service(session)
     await _service.delete(_id)
-    # return {{"detail" : "... deleted successfully"}}
     return "deleted"
 '''
 
