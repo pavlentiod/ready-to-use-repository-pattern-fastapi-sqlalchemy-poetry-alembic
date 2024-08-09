@@ -3,9 +3,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from pydantic import UUID4
 
-from database import db_helper
-from services.{entity}.{entity}_service import {Entity}Service
-from schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output
+from src.database import db_helper
+from src.services.{entity}.{entity}_service import {Entity}Service
+from src.schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output
 
 router = APIRouter()
 

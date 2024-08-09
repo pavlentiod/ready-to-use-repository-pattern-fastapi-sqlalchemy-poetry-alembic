@@ -5,9 +5,9 @@ from pydantic import UUID4
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database import db_helper
-from database.models.{entity}.{entity} import {Entity}
-from schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output
+from src.database import db_helper
+from src.database.models.{entity}.{entity} import {Entity}
+from src.schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output
 
 
 class {Entity}Repository:

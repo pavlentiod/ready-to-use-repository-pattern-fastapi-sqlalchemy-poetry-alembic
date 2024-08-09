@@ -1,8 +1,8 @@
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from repositories.{entity}.{entity}_repository import {Entity}Repository
-from schemas.{entity}.{entity}_schema import {Entity}Input
+from src.repositories.{entity}.{entity}_repository import {Entity}Repository
+from src.schemas.{entity}.{entity}_schema import {Entity}Input
 
 
 @pytest.fixture

@@ -3,8 +3,8 @@ from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import uuid4
 
-from schemas.{entity}.{entity}_schema import {Entity}Input
-from service.{entity}.{entity}_service import {Entity}Service
+from src.schemas.{entity}.{entity}_schema import {Entity}Input
+from src.service.{entity}.{entity}_service import {Entity}Service
 
 
 @pytest.fixture

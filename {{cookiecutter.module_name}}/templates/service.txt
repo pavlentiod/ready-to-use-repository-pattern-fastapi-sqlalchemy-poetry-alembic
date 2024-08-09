@@ -6,9 +6,9 @@ from fastapi import HTTPException
 from pydantic import UUID4
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database import db_helper
-from repositories.{entity}.{entity}_repository import {Entity}Repository
-from schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output, {Entity}Endpoint
+from src.database import db_helper
+from src.repositories.{entity}.{entity}_repository import {Entity}Repository
+from src.schemas.{entity}.{entity}_schema import {Entity}Input, {Entity}Output, {Entity}Endpoint
 
 
 class {Entity}Service:
