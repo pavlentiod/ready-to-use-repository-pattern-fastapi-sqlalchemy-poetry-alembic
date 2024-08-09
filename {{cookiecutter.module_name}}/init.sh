@@ -4,7 +4,7 @@
 mv * ..
 
 # Remove the directory named after the project name (assumes cookiecutter syntax is replaced)
-rm -rfv ../"{{ cookiecutter.project_name }}"
+rm -rfv ../"{{ cookiecutter.basicpythonproject }}"
 # Function to prompt for entities
 get_entities() {
     echo "Enter entity names separated by space: "
