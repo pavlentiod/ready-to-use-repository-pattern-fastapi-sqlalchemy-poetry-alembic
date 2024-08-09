@@ -204,8 +204,8 @@ async def delete_{entity}(
 ):
     _service = {Entity}Service(session)
     await _service.delete(_id)
-    return {{"detail": "... deleted successfully"}}
-
+    # return {{"detail" : "... deleted successfully"}}
+    return "deleted"
 '''
 
 router_import_template = """
